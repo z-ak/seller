@@ -21,6 +21,7 @@
   // import {urlParse} from 'common/js/util';
   import header from 'components/header/header.vue';
 
+  const ERR_OK = 0;
   // const ERR_OK = 0;
   //
   // export default {
@@ -48,6 +49,21 @@
   // };
 
   export default {
+    data() {
+      return {
+        seller: {}
+      };
+    },
+    created() {
+      this.$http.get('/api/seller').then((response) => {
+        response = response.body;
+        console.log(response);
+        if (response.errno === ERR_OK) {
+          this.seller = response.data;
+          console.log(this.seller);
+        }
+      });
+    },
     components: {
       'v-header': header
     }
@@ -63,8 +79,7 @@
     width: 100%
     height: 40px
     line-height: 40px
-    // border-bottom: 1px solid rgba(7,17,27,0.1)
-    border-1px(rgba(7,17,27,0.1))
+    border-1px(rgba(7, 17, 27, 0.1))
     .tab-item
       flex: 1
       text-align: center
